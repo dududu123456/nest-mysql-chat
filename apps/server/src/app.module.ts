@@ -16,7 +16,7 @@ console.log('process.env.BASE_DATOS_HOST', process.env.BASE_DATOS_HOST);
 
 @Module({
   imports: [
-    ConfigModule.forRoot({ isGlobal: true }),
+    ConfigModule.forRoot({ isGlobal: true, envFilePath: '.env.development' }),
     TypeOrmModule.forRoot({
       type: 'mysql',
       host: process.env.BASE_DATOS_HOST,
