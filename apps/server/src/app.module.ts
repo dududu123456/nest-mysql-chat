@@ -5,12 +5,14 @@ import {
   RequestMethod,
 } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
+import { JwtModule } from '@nestjs/jwt';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { CatsModule } from './cats/cats.module';
 import { LoggerMiddleware } from './common/middleware/logger2.middleware';
 import { ChatModule } from './chat/chat.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { UserModule } from './user/user.module';
 
 console.log('process.env.BASE_DATOS_HOST', process.env.BASE_DATOS_HOST);
 
@@ -27,8 +29,14 @@ console.log('process.env.BASE_DATOS_HOST', process.env.BASE_DATOS_HOST);
       autoLoadEntities: true, // 自动查找Entity 实体
       synchronize: true, // 自动创建数据库表
     }),
+    JwtModule.register({
+      global: true,
+      secret: process.env.JWT_SECRET,
+      signOptions: { expiresIn: process.env.JWT_EXPIRE },
+    }),
     CatsModule,
     ChatModule,
+    UserModule,
   ],
   controllers: [AppController],
   providers: [AppService],
