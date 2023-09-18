@@ -31,7 +31,6 @@ export class UserService {
       // add
       await this.userRepository.save(Object.assign(new User(), createUser));
     } catch (err) {
-      console.log('register err', err);
       throw new HttpException(err.message, HttpStatus.CONFLICT);
     }
     // find
@@ -61,7 +60,7 @@ export class UserService {
       where: params,
     });
 
-    console.log('existUser', existUser);
+    // console.log('existUser', existUser);
     if (!existUser) {
       throw new HttpException('user not exist', HttpStatus.NOT_FOUND);
     }
@@ -75,7 +74,11 @@ export class UserService {
       },
     });
 
-    res.setHeader('token', token);
+    res.setHeader('token', 'bearer ' + token);
     return existUser;
+  }
+
+  async findAll() {
+    return await this.userRepository.find();
   }
 }

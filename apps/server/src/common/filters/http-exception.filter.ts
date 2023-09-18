@@ -19,8 +19,11 @@ export class HttpExceptionFilter implements ExceptionFilter {
      */
     const exceptionResponse: any = exception.getResponse();
     let validMessage = '';
+
+    console.log('===Global ExceptionFilter===', exception);
+
     for (const key in exception) {
-      console.log('===过滤器===', key, exception[key]);
+      // console.log('===过滤器===', key, exception[key]);
     }
     // 获取response中的message
     if (typeof exceptionResponse === 'object') {

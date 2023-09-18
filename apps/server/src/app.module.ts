@@ -43,11 +43,11 @@ console.log('process.env.BASE_DATOS_HOST', process.env.BASE_DATOS_HOST);
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
-    consumer
-      .apply(LoggerMiddleware)
-      .forRoutes(
-        { path: 'cats', method: RequestMethod.GET },
-        { path: 'aaa', method: RequestMethod.ALL },
-      );
+    consumer.apply(LoggerMiddleware).forRoutes('*');
+    // .forRoutes(
+    //   { path: 'cats', method: RequestMethod.GET },
+    //   { path: 'aaa', method: RequestMethod.ALL },
+    //   { path: 'user', method: RequestMethod.ALL },
+    // );
   }
 }
